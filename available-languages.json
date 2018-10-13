@@ -3,8 +3,9 @@
   { "CN": "China" },
   { "ID": "Indonesia" },
   { "IT": "Italy" },
+  { "JP": "Japan" },
+  { "MT": "Malta" },
   { "PL": "Poland" },
   { "PH": "Philippines" },
-  { "RS": "Serbia" },
-  { "JP": "Japan" }
+  { "RS": "Serbia" }
 ]

@@ -16,7 +16,7 @@ parser.addArgument(
 parser.addArgument(
   [ '--language' ],
   {
-    help: 'language code of the paresed surenames'
+    help: 'language code of the parsed surenames'
   }
 );
 var args = parser.parseArgs();

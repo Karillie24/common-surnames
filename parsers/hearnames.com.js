@@ -44,9 +44,23 @@ let allFoundSurnames = [];
   let nextPage = false;
   do {
     // fetch all the names from here
-    let allNames = await page.evaluate(() => {
+    let allNamesParsed = await page.evaluate(() => {
       let elements = [...document.querySelectorAll('[itemprop="name"]')];
       return elements.map(element => element.innerText.trim());
+    });
+
+    // check if this shows the real and a english version
+    let allNames = [];
+    const addNamesFromRawString = rawString => 
+      rawString.split(',').forEach(name => 
+        allNames.push(name.trim()));
+
+    allNamesParsed.forEach(name => {
+      let tokens = name.split(' (');
+      addNamesFromRawString(tokens[0].trim());
+      if (tokens.length === 2) {
+        addNamesFromRawString(tokens[1].split(')').join(''));
+      }
     });
     
     const currentUrl = await page.url();

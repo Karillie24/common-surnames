@@ -42,10 +42,13 @@ if (fs.existsSync(fileName)) {
   const uniqueSurnames = Array.from(new Set(withoutEmpty));
   console.log(`Removed ${withoutEmpty.length - uniqueSurnames.length} duplicate entries`);
 
+  // sort names
+  const sortedSurnames = uniqueSurnames.sort();
+
   // convert back into JSON
   // and write it back into the file
   try {
-    const jsonContent = JSON.stringify(uniqueSurnames, null, 2);
+    const jsonContent = JSON.stringify(sortedSurnames, null, 2);
     fs.writeFileSync(fileName, jsonContent, 'utf8');
   } catch (e) {
     console.error(`Could not write back json-content into ${language}.json`);

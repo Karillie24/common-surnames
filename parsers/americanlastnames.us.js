@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const { getSurnamesByLanguage, setSurnamesByLanguage } = require(`${__dirname}/../scripts/helpers.js`);
+const { getSurnamesByCountry, setSurnamesByCountry } = require(`${__dirname}/../scripts/helpers.js`);
 const ArgumentParser = require('argparse').ArgumentParser;
 var parser = new ArgumentParser({
   version: '1.0.0',
@@ -9,30 +9,22 @@ var parser = new ArgumentParser({
 parser.addArgument(
   [ '--baseUrl' ],
   {
+    required: true,
     // example: http://www.americanlastnames.us/last-names/Serbian/A/A-0.html
     help: 'base url of the americanlastnames.us surename overview of a certain language'
   }
 );
 parser.addArgument(
-  [ '--language' ],
+  [ '--country' ],
   {
-    help: 'language code of the parsed surenames'
+    required: true,
+    help: 'country code of the parsed surenames'
   }
 );
 var args = parser.parseArgs();
 
-const languageCode = args.language;
+const countryCode = args.country;
 const baseUrl = args.baseUrl;
-
-if (!baseUrl) {
-  console.error('Please provide a --language argument');
-  return;
-}
-
-if (!languageCode) {
-  console.error('Please provide a --language argument');
-  return;
-}
 
 let allFoundSurnames = [];
 
@@ -88,8 +80,8 @@ let allFoundSurnames = [];
 
   // add the found names to the already existing 
   // list
-  const previousSavedSurnames = getSurnamesByLanguage(languageCode);
-  setSurnamesByLanguage([...previousSavedSurnames, ...allFoundSurnames], languageCode);
+  const previousSavedSurnames = getSurnamesByCountry(countryCode);
+  setSurnamesByCountry([...previousSavedSurnames, ...allFoundSurnames], countryCode);
 
-  console.log(`Saved for language ${languageCode}`);
+  console.log(`Saved for country ${countryCode}`);
 })();

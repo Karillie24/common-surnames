@@ -1,14 +1,14 @@
 const fs = require('fs');
 
-const getSurnameFile = languageCode => {
-  const language = languageCode.toUpperCase();
-  const fileName = `${__dirname}/../surnames/${language}.json`;
+const getSurnameFile = countryCode => {
+  const country = countryCode.toUpperCase();
+  const fileName = `${__dirname}/../surnames/${country}.json`;
   return fileName;
 }
 
-const getSurnamesByLanguage = languageCode => {
+const getSurnamesByCountry = countryCode => {
   let parsedContent = [];
-  const fileName = getSurnameFile(languageCode);
+  const fileName = getSurnameFile(countryCode);
   if (fs.existsSync(fileName)) {
     const rawContent = fs.readFileSync(fileName, 'utf8');
     try {
@@ -18,8 +18,8 @@ const getSurnamesByLanguage = languageCode => {
   return parsedContent;
 }
 
-const setSurnamesByLanguage = (surnames, languageCode) => {
-  const fileName = getSurnameFile(languageCode);
+const setSurnamesByCountry = (surnames, countryCode) => {
+  const fileName = getSurnameFile(countryCode);
   try {
     const jsonContent = JSON.stringify(surnames, null, 2);
     fs.writeFileSync(fileName, jsonContent, 'utf8');
@@ -28,6 +28,6 @@ const setSurnamesByLanguage = (surnames, languageCode) => {
 
 module.exports = {
   getSurnameFile,
-  getSurnamesByLanguage,
-  setSurnamesByLanguage,
+  getSurnamesByCountry,
+  setSurnamesByCountry,
 };

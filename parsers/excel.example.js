@@ -1,7 +1,7 @@
 var xlsx = require("node-xlsx").default;
 const {
-  getSurnamesByLanguage,
-  setSurnamesByLanguage
+  getSurnamesByCountry,
+  setSurnamesByCountry
 } = require(`${__dirname}/../scripts/helpers.js`);
 const ArgumentParser = require('argparse').ArgumentParser;
 
@@ -11,9 +11,11 @@ const parser = new ArgumentParser({
   description: "Scans given excel file for surnames of given country"
 });
 parser.addArgument(["--excelPath"], {
+  required: true,
   help: "full path to excel file"
 });
 parser.addArgument(["--country"], {
+  required: true,
   help: "country code for the surnames that should be used"
 });
 var args = parser.parseArgs();
@@ -21,7 +23,7 @@ var args = parser.parseArgs();
 const countryCode = args.country;
 const workSheetsFromFile = xlsx.parse(args.excelPath);
 
-const matcherSurnames = getSurnamesByLanguage(countryCode);
+const matcherSurnames = getSurnamesByCountry(countryCode);
 const sheet = workSheetsFromFile[0];
 
 const hitsFromSheet = sheet.data
@@ -41,7 +43,7 @@ console.log(
   `Found ${hitsFromSheet.length} hits in list for ${countryCode.toUpperCase()}`
 );
 
-setSurnamesByLanguage(
+setSurnamesByCountry(
   hitsFromSheet,
   `${countryCode}-excel-parse-${Date.now().toString()}`
 );

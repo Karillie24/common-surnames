@@ -1,7 +1,7 @@
 {
   "name": "common-surnames",
-  "version": "1.0.0",
-  "description": "A collection of common surnames",
+  "version": "1.0.1",
+  "description": "A collection of common surnames sorted by country",
   "main": "index.js",
   "repository": "git@github.com:SMenigat/common-surnames.git",
   "author": "Samuel Menigat <samuel.menigat@gmail.com>",
@@ -10,5 +10,9 @@
     "argparse": "^1.0.10",
     "node-xlsx": "^0.12.1",
     "puppeteer": "^1.9.0"
-  }
+  },
+  "files": [
+    "available-countries.json",
+    "surnames/*"
+  ]
 }

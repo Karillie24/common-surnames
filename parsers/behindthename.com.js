@@ -10,7 +10,7 @@ var parser = new ArgumentParser({
   description: "Cleans up surname .json file"
 });
 parser.addArgument(["--baseUrl"], {
-  // example: https://www.hearnames.com/pronunciations/filipino-and-tagalog-names/filipino-and-tagalog-surnames
+  // example: https://surnames.behindthename.com/submit/names/usage/filipino
   help:
     "base url of the behindthename.com surename overview of a certain language"
 });

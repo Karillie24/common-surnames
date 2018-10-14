@@ -9,5 +9,8 @@
   "dependencies": {
     "argparse": "^1.0.10",
     "puppeteer": "^1.9.0"
+  },
+  "devDependencies": {
+    "node-xlsx": "^0.12.1"
   }
 }

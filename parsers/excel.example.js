@@ -28,7 +28,7 @@ const sheet = workSheetsFromFile[0];
 
 const hitsFromSheet = sheet.data
   .filter(row => {
-    const nameLine = row[row.length - 1].trim();
+    const nameLine = row[row.length - 1].replace(/\*/g, '').trim();
     const lastname = nameLine.split(" ")[0];
     return matcherSurnames.includes(lastname);
   })
@@ -36,7 +36,7 @@ const hitsFromSheet = sheet.data
     house: addressArray[0].toString().trim(),
     street: addressArray[1].toString().trim(),
     city: addressArray[2].toString().trim(),
-    name: addressArray[3].toString().trim()
+    name: addressArray[3].toString().replace(/\*/g, '').trim()
   }));
 
 console.log(

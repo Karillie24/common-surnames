@@ -1,4 +1,5 @@
-var xlsx = require("node-xlsx").default;
+const fs = require("fs");
+const xlsx = require("node-xlsx").default;
 const {
   getSurnamesByCountry,
   setSurnamesByCountry
@@ -13,6 +14,9 @@ const parser = new ArgumentParser({
 parser.addArgument(["--excelPath"], {
   required: true,
   help: "full path to excel file"
+});
+parser.addArgument(["--excelOutputPath"], {
+  help: "full path to output excel file"
 });
 parser.addArgument(["--country"], {
   required: true,
@@ -43,7 +47,25 @@ console.log(
   `Found ${hitsFromSheet.length} hits in list for ${countryCode.toUpperCase()}`
 );
 
-setSurnamesByCountry(
-  hitsFromSheet,
-  `${countryCode}-excel-parse-${Date.now().toString()}`
-);
+if (args.excelOutputPath) {
+
+  // create excel file in memory
+  const excelData = hitsFromSheet.map(a => ([
+    a.house, a.street, a.city, a.name
+  ]));
+
+  const excelBuffer = xlsx.build([{
+    name: countryCode, data: excelData
+  }]);
+
+  // write buffer to file
+  const fileHandle = fs.openSync(args.excelOutputPath, 'wx');
+  fs.writeSync(fileHandle, excelBuffer);
+
+  console.log('Excel file written in ', args.excelOutputPath);
+} else {
+  setSurnamesByCountry(
+    hitsFromSheet,
+    `${countryCode}-excel-parse-${Date.now().toString()}`
+  );  
+}

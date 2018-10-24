@@ -40,6 +40,7 @@ const hitsFromSheet = sheet.data
     house: addressArray[0].toString().trim(),
     street: addressArray[1].toString().trim(),
     city: addressArray[2].toString().trim(),
+    addressString: `${addressArray[0].toString().trim()} ${addressArray[1].toString().trim()}, ${addressArray[2].toString().trim()}`,
     name: addressArray[3].toString().replace(/\*/g, '').trim()
   }));
 
@@ -51,7 +52,7 @@ if (args.excelOutputPath) {
 
   // create excel file in memory
   const excelData = hitsFromSheet.map(a => ([
-    a.house, a.street, a.city, a.name
+    a.house, a.street, a.city, a.addressString, a.name
   ]));
 
   const excelBuffer = xlsx.build([{
